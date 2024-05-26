@@ -77,28 +77,33 @@ radio_nao = tk.Radiobutton(root, text="Não", variable=qntportas_var, value="Nã
 radio_sim.grid(row=21, column=0, sticky='w')
 radio_nao.grid(row=21, column=1, sticky='w')
 
+#Slider capacidade da mala
+tk.Label(root, text="Capacidade da mala(L):").grid(row=22, column=0)
+scale_peso = tk.Scale(root, from_=0, to=600, orient=tk.HORIZONTAL,sliderlength=10, sliderrelief='raised')
+scale_peso.grid(row=22, column=1)
+
 #Recursos do carro
-tk.Label(root, text="O carro possui:").grid(row=22, column=0)
+tk.Label(root, text="O carro possui:").grid(row=23, column=0)
 
 #Ar-condiconado
 checkbox_ar_var = tk.BooleanVar()
 checkbox_ar = tk.Checkbutton(root, text="Ar-condicionado", variable=checkbox_ar_var)
-checkbox_ar.grid(row=23, column=0, sticky='w')
+checkbox_ar.grid(row=24, column=0, sticky='w')
 
 #Radio
 checkbox_radio_var = tk.BooleanVar()
 checkbox_radio = tk.Checkbutton(root, text="Radio", variable=checkbox_radio_var)
-checkbox_radio.grid(row=24, column=0, sticky='w')
+checkbox_radio.grid(row=25, column=0, sticky='w')
 
 #Airbag
 checkbox_airbag_var = tk.BooleanVar()
 checkbox_airbag = tk.Checkbutton(root, text="Airbag", variable=checkbox_airbag_var)
-checkbox_airbag.grid(row=25, column=0, sticky='w')
+checkbox_airbag.grid(row=26, column=0, sticky='w')
 
 #Defeitos
-tk.Label(root, text="Problemas no carro:").grid(row=26, column=0)
+tk.Label(root, text="Problemas no carro:").grid(row=27, column=0)
 entry_cidade = tk.Entry(root)
-entry_cidade.grid(row=26, column=1)
+entry_cidade.grid(row=27, column=1)
 
 #--------------------------------------------------------------------------------
 #buttons
