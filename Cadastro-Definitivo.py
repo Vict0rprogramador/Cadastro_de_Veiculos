@@ -3,6 +3,30 @@ from tkinter import messagebox
 from tkinter import ttk
 import sqlite3
 
+#config do banco
+connection =sqlite3.connect('carros.db')
+cursor = connection.cursor()
+cursor.execute('''CREATE TABLE IF NOT EXISTS carros(
+                  Chassi INTEGER PRIMARY KEY AUTOINCREMENT,
+                  Nome_do_Proprietario TEXT NOT NULL,
+                  CPF_do_Proprietario INTEGER NOT NULL,
+                  Placa TEXT NOT NULL,
+                  UF TEXT NOT NULL,
+                  Cidade TEXT NOT NULL,
+                  Marca TEXT NOT NULL,
+                  Ano_de_Fabricacao INTEGER NOT NULL,
+                  Cor TEXT NOT NULL,
+                  Portas INTEGER NOT NULL,
+                  Mala TEXT NOT NULL,
+                  capacidade_da_Mala INTEGER NOT NULL,
+                  ArCondicionado BOOLEAN NOT NULL,
+                  Radio BOOLEAN NOT NULL,
+                  Airbag BOOLEAN NOT NULL,
+                  Defeitos TEXT NOT NULL)''')
+
+connection.commit()
+print("tabela criada")
+
 #abertura dejanela do tk
 root = tk.Tk()
 root.title("Cadastro de carro")
