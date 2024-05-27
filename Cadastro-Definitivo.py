@@ -61,6 +61,37 @@ def delete():
         messagebox.showinfo("Sucesso", "carro deletado com sucesso!")
     except ValueError:
         messagebox.showwarning("Atenção", "Número de chassi inválido!")
+
+#update
+def update():
+    try:
+        Chassi = int(entry_chassi.get())
+        Nome_do_proprietario = entry_nome.get()
+        CPF_do_proprietario = entry_cpf.get()
+        Placa = entry_placa.get()
+        UF = combobox_uf.get()
+        Cidade = entry_cidade.get()
+        Marca = combobox_marca.get()
+        Ano_de_fabricacao = combobox_ano.get()
+        Cor = combobox_cor.get()
+        Portas = qntportas_var.get()
+        Mala = mala_var.get()
+        capacidade_da_mala = scale_peso.get()
+        ArCondicionado = checkbox_ar_var.get()
+        Radio = checkbox_radio_var.get()
+        Airbag = checkbox_airbag_var.get()
+        Defeitos = entry_cidade.get()
+
+        if Nome_do_proprietario and CPF_do_proprietario and Placa and UF and Cidade and Marca and Ano_de_fabricacao and Cor and Portas and Mala and capacidade_da_mala and Defeitos:
+            cursor.execute('''UPDATE carros SET Nome_do_proprietario=?, CPF_do_proprietario=?, Placa=?, UF=?, Cidade=?, Marca=?, Ano_de_fabricacao=?, Cor=?, Portas=?, Mala=?, capacidade_da_mala=?, ArCondicionado=?, Radio=?, Airbag=?, Defeitos=?
+                WHERE Chassi=?''',
+                (Nome_do_proprietario, CPF_do_proprietario, Placa, UF, Cidade, Marca, Ano_de_fabricacao, Cor, Portas, Mala, capacidade_da_mala, ArCondicionado, Radio, Airbag, Defeitos, Chassi))
+            connection.commit()
+            messagebox.showinfo("Sucesso", "Cadastro atualizado com sucesso!")
+        else:
+            messagebox.showwarning("Atenção", "Preencha todos os campos!")
+    except ValueError:
+        messagebox.showwarning("Atenção", "chassi inválido!")
         
 #abertura dejanela do tk
 root = tk.Tk()
@@ -168,7 +199,7 @@ entry_cidade.grid(row=27, column=1)
 #buttons
 tk.Button(root, text="Confirmar cadastro", command=insert).grid(row=30, column=0)
 tk.Button(root, text="Excluir cadastro", command=delete).grid(row=30, column=1)
-tk.Button(root, text="Atualizar cadastro").grid(row=30, column=2)
+tk.Button(root, text="Atualizar cadastro", command=update).grid(row=30, column=2)
 tk.Button(root, text="Carros cadastrados").grid(row=30, column=3)
 
 root.mainloop()
