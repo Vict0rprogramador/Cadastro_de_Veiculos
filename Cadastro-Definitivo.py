@@ -27,6 +27,30 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS carros(
 connection.commit()
 print("tabela criada")
 
+#CRUD
+#insert
+def insert():
+    Chassi = entry_chassi.get()
+    Nome_do_proprietario = entry_nome.get()
+    CPF_do_proprietario = entry_cpf.get()
+    Placa = entry_placa.get()
+    UF = combobox_uf.get()
+    Cidade = entry_cidade.get()
+    Marca = combobox_marca.get()
+    Ano_de_fabricacao = combobox_ano.get()
+    Cor = combobox_cor.get()
+    Portas = qntportas_var.get()
+    Mala = mala_var.get()
+    capacidade_da_mala = scale_peso.get()
+    ArCondicionado = checkbox_ar_var.get()
+    Radio = checkbox_radio_var.get()
+    Airbag = checkbox_airbag_var.get()
+    Defeitos = entry_cidade.get()
+
+    connection.execute("INSERT INTO carros (Chassi, Nome_do_proprietario, CPF_do_proprietario, Placa, UF, Cidade, Marca, Ano_de_fabricacao, Cor, Portas, Mala, capacidade_da_mala, ArCondicionado, Radio, Airbag, Defeitos) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", 
+                      (Chassi, Nome_do_proprietario, CPF_do_proprietario, Placa, UF, Cidade, Marca, Ano_de_fabricacao, Cor, Portas, Mala, capacidade_da_mala, ArCondicionado, Radio, Airbag, Defeitos))
+    connection.commit()
+    messagebox.showinfo("Sucesso", "carro inserido com sucesso!")
 #abertura dejanela do tk
 root = tk.Tk()
 root.title("Cadastro de carro")
@@ -54,11 +78,11 @@ entry_placa.grid(row=7, column=0)
 
 #UF
 tk.Label(root, text="UF:").grid(row=8, column=0)
-combobox_ano = ttk.Combobox(root)
-combobox_ano['values'] = ["AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MG", "MS",
+combobox_uf = ttk.Combobox(root)
+combobox_uf['values'] = ["AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MG", "MS",
     "MT", "PA", "PB", "PE", "PI", "PR", "RJ", "RN", "RO", "RR", "RS", "SC",
     "SE", "SP", "TO"]
-combobox_ano.grid(row=9, column=0)
+combobox_uf.grid(row=9, column=0)
 
 #Cidade
 tk.Label(root, text="Cidade:").grid(row=10, column=0)
@@ -95,9 +119,9 @@ radio_4portas.grid(row=19, column=1, sticky='w')
 
 #Mala
 tk.Label(root, text="Possui mala:").grid(row=20, column=0)
-qntportas_var = tk.StringVar()
-radio_sim = tk.Radiobutton(root, text="Sim", variable=qntportas_var, value="Sim")
-radio_nao = tk.Radiobutton(root, text="Não", variable=qntportas_var, value="Não")
+mala_var = tk.StringVar()
+radio_sim = tk.Radiobutton(root, text="Sim", variable=mala_var, value="Sim")
+radio_nao = tk.Radiobutton(root, text="Não", variable=mala_var, value="Não")
 radio_sim.grid(row=21, column=0, sticky='w')
 radio_nao.grid(row=21, column=1, sticky='w')
 
@@ -131,7 +155,7 @@ entry_cidade.grid(row=27, column=1)
 
 #--------------------------------------------------------------------------------
 #buttons
-tk.Button(root, text="Confirmar cadastro").grid(row=30, column=0)
+tk.Button(root, text="Confirmar cadastro", command=insert).grid(row=30, column=0)
 tk.Button(root, text="Excluir cadastro").grid(row=30, column=1)
 tk.Button(root, text="Atualizar cadastro").grid(row=30, column=2)
 tk.Button(root, text="Carros cadastrados").grid(row=30, column=3)
