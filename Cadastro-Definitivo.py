@@ -92,7 +92,29 @@ def update():
             messagebox.showwarning("Atenção", "Preencha todos os campos!")
     except ValueError:
         messagebox.showwarning("Atenção", "chassi inválido!")
-        
+
+#Select
+def select():
+    listar_janela = tk.Toplevel(root)
+    listar_janela.title("Listagem dos carros")
+
+    listbox = tk.Listbox(listar_janela, width=320)
+    listbox.pack()
+
+    cursor.execute("SELECT * FROM carros")
+    registros = cursor.fetchall()
+    for registro in registros:
+        listbox.insert(tk.END, f"Chassi: {registro[0]} - Nome do Proprietário: {registro[1]} - CPF: {registro[2]} - "
+                               f"Placa: {registro[3]} - UF: {registro[4]} - Cidade: {registro[5]} - "
+                               f"Marca: {registro[6]} - Ano: {registro[7]} - Cor: {registro[8]} - "
+                               f"Portas: {registro[9]} - Mala: {'Sim' if registro[10] == 'Sim' else 'Não'} - "
+                               f"Capacidade da Mala: {registro[11]}L - "
+                               f"Ar-condicionado: {'Sim' if registro[12] else 'Não'} - "
+                               f"Radio: {'Sim' if registro[13] else 'Não'} - "
+                               f"Airbag: {'Sim' if registro[14] else 'Não'} - "
+                               f"Problemas: {registro[15]}")
+
+    
 #abertura dejanela do tk
 root = tk.Tk()
 root.title("Cadastro de carro")
@@ -141,7 +163,7 @@ combobox_marca.grid(row=13, column=0)
 #Ano de fabricação
 tk.Label(root, text="Ano de fabricação:").grid(row=14, column=0)
 combobox_ano = ttk.Combobox(root)
-combobox_ano['values'] = [str(year) for year in range(1900, 2025)]
+combobox_ano['values'] = [str(year) for year in range(1980, 2025)]
 combobox_ano.grid(row=15, column=0)
 
 #Cor
@@ -200,7 +222,7 @@ entry_cidade.grid(row=27, column=1)
 tk.Button(root, text="Confirmar cadastro", command=insert).grid(row=30, column=0)
 tk.Button(root, text="Excluir cadastro", command=delete).grid(row=30, column=1)
 tk.Button(root, text="Atualizar cadastro", command=update).grid(row=30, column=2)
-tk.Button(root, text="Carros cadastrados").grid(row=30, column=3)
+tk.Button(root, text="Carros cadastrados", command=select).grid(row=30, column=3)
 
 root.mainloop()
 
