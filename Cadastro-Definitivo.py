@@ -51,6 +51,17 @@ def insert():
                       (Chassi, Nome_do_proprietario, CPF_do_proprietario, Placa, UF, Cidade, Marca, Ano_de_fabricacao, Cor, Portas, Mala, capacidade_da_mala, ArCondicionado, Radio, Airbag, Defeitos))
     connection.commit()
     messagebox.showinfo("Sucesso", "carro inserido com sucesso!")
+
+#delete
+def delete():
+    try:
+        Chassi = int(entry_chassi.get())
+        connection.execute("DELETE FROM carros WHERE Chassi=?", (Chassi,))
+        connection.commit()
+        messagebox.showinfo("Sucesso", "carro deletado com sucesso!")
+    except ValueError:
+        messagebox.showwarning("Atenção", "Número de chassi inválido!")
+        
 #abertura dejanela do tk
 root = tk.Tk()
 root.title("Cadastro de carro")
@@ -67,7 +78,7 @@ entry_nome = tk.Entry(root)
 entry_nome.grid(row=3, column=0)
 
 #CPF do proprietário
-tk.Label(root, text="Nome do proprietário").grid(row=4, column=0)
+tk.Label(root, text="CPF do proprietário").grid(row=4, column=0)
 entry_cpf = tk.Entry(root)
 entry_cpf.grid(row=5, column=0)
 
@@ -156,7 +167,7 @@ entry_cidade.grid(row=27, column=1)
 #--------------------------------------------------------------------------------
 #buttons
 tk.Button(root, text="Confirmar cadastro", command=insert).grid(row=30, column=0)
-tk.Button(root, text="Excluir cadastro").grid(row=30, column=1)
+tk.Button(root, text="Excluir cadastro", command=delete).grid(row=30, column=1)
 tk.Button(root, text="Atualizar cadastro").grid(row=30, column=2)
 tk.Button(root, text="Carros cadastrados").grid(row=30, column=3)
 
