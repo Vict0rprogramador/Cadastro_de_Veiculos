@@ -114,7 +114,32 @@ def select():
                                f"Airbag: {'Sim' if registro[14] else 'Não'} - "
                                f"Problemas: {registro[15]}")
 
-    
+def selectchassi():
+    try:
+        Chassi = int(entry_chassi.get())
+        listar_janela = tk.Toplevel(root)
+        listar_janela.title("Carro")
+
+        listbox = tk.Listbox(listar_janela, width=320)
+        listbox.pack()
+
+        cursor.execute("SELECT * FROM carros WHERE Chassi=?", (Chassi,))
+        registro = cursor.fetchone()
+        if registro:
+            listbox.insert(tk.END, f"Chassi: {registro[0]} - Nome do Proprietário: {registro[1]} - CPF: {registro[2]} - "
+                                   f"Placa: {registro[3]} - UF: {registro[4]} - Cidade: {registro[5]} - "
+                                   f"Marca: {registro[6]} - Ano: {registro[7]} - Cor: {registro[8]} - "
+                                   f"Portas: {registro[9]} - Mala: {'Sim' if registro[10] == 'Sim' else 'Não'} - "
+                                   f"Capacidade da Mala: {registro[11]}L - "
+                                   f"Ar-condicionado: {'Sim' if registro[12] else 'Não'} - "
+                                   f"Radio: {'Sim' if registro[13] else 'Não'} - "
+                                   f"Airbag: {'Sim' if registro[14] else 'Não'} - "
+                                   f"Problemas: {registro[15]}")
+        else:
+            messagebox.showinfo("Informação", "Carro não encontrado!")
+    except ValueError:
+        messagebox.showwarning("Atenção", "Número de chassi inválido!")
+        
 #abertura dejanela do tk
 root = tk.Tk()
 root.title("Cadastro de carro")
@@ -223,8 +248,8 @@ tk.Button(root, text="Confirmar cadastro", command=insert).grid(row=30, column=0
 tk.Button(root, text="Excluir cadastro", command=delete).grid(row=30, column=1)
 tk.Button(root, text="Atualizar cadastro", command=update).grid(row=30, column=2)
 tk.Button(root, text="Carros cadastrados", command=select).grid(row=30, column=3)
+tk.Button(root, text="Procurar pelo chassi", command=selectchassi).grid(row=30, column=4)
 
 root.mainloop()
-
 
 
